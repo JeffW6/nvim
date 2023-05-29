@@ -4,7 +4,50 @@
 ## 要求
 neovim >=0.8.0
 
+非ARM版本，优先找[Stable Release](https://github.com/neovim/neovim/releases/tag/stable)文件
 
+#### Install from source
+
+针对ARM版本，编译源码。以下在Jetson平台验证。其它ARM平台可以参考。
+
+```Shell
+sudo apt remove python3-neovim neovim  # 先卸载之前的neovim版本
+
+sudo apt install ninja-build gettext cmake unzip curl  # 安装依赖
+
+mkdir ~/setup -p
+cd ~/setup
+git clone https://github.com/neovim/neovim
+cd neovim/
+# 编译安装
+make CMAKE_BUILD_TYPE=Release
+sudo make install
+sudo cp /usr/local/bin/nvim /usr/bin/
+nvim --version
+```
+
+项目中已经包含`nvim/bin/nvim-arm64-v0.10.0-dev-release`
+可以直接使用：
+```Shell
+sudo cp nvim/bin/nvim-arm64-v0.10.0-dev-release /usr/bin/nvim
+```
+
+
+**Uninstall**
+
+```Shell
+sudo cmake --build build/ --target uninstall
+sudo rm /usr/local/bin/nvim    # 检查
+sudo rm -r /usr/local/share/nvim/    # 检查
+sudo rm /usr/bin/nvim
+```
+
+## 加载配置
+```Shell
+mkdir -p ~/.config
+cd ~/.config
+git clone https://github.com/jeffw6/neovim
+```
 
 ## 基于配置
 
